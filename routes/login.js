@@ -4,6 +4,7 @@ const Users = require('../models/Users');
 const Post = require('../models/Posts');
 
 router.post('/validateUsers', (req, res) => {
+    // console.log('here ', req.body.username, req.body.password);
     if (!req.body.username || !req.body.password) {
         return res.json({
             msg: 'data insufficient'
@@ -17,27 +18,17 @@ router.post('/validateUsers', (req, res) => {
             password: req.body.password
         }, function (err, result) {
             if (err) {
-                res.setHeader({
-                    'Access-Control-Allow-Origin': '*'
-                }).json({
+                res.json({
                     msg: error
-                });
+                })
             } else {
                 // console.log('result', result);
                 if(result.length > 0) {
-                    console.log('in if');
-                    res.setHeader({
-                        'Access-Control-Allow-Origin': '*'
-                    }).json({
-                        msg: 'valid user'
-                    });
+                    // console.log('in if');
+                    res.json({msg: 'valid user'});
                 } else {
-                    console.log('in else');
-                    res.setHeader({
-                        'Access-Control-Allow-Origin': '*'
-                    }).json({
-                        msg: 'invalid user'
-                    });
+                    // console.log('in else');
+                    res.json({msg: 'invalid user'});
                 }
             }
         })
