@@ -9,7 +9,7 @@ router.post('/validateUsers', (req, res) => {
             msg: 'data insufficient'
         });
     }
-    console.log('here');
+    // console.log('here');
     try {
         // console.log(Users)
         Users.find({
