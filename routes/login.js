@@ -17,17 +17,27 @@ router.post('/validateUsers', (req, res) => {
             password: req.body.password
         }, function (err, result) {
             if (err) {
-                res.json({
+                res.setHeader({
+                    'Access-Control-Allow-Origin': '*'
+                }).json({
                     msg: error
-                })
+                });
             } else {
                 // console.log('result', result);
                 if(result.length > 0) {
                     console.log('in if');
-                    res.json({msg: 'valid user'});
+                    res.setHeader({
+                        'Access-Control-Allow-Origin': '*'
+                    }).json({
+                        msg: 'valid user'
+                    });
                 } else {
                     console.log('in else');
-                    res.json({msg: 'invalid user'});
+                    res.setHeader({
+                        'Access-Control-Allow-Origin': '*'
+                    }).json({
+                        msg: 'invalid user'
+                    });
                 }
             }
         })
