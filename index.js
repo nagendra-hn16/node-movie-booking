@@ -23,7 +23,7 @@ mongoose.connect(
 )
 
 // Listen to all requests made to port 5000
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
 
 
 //mongodb+srv://testUser:1qaz@WSX@cluster0.ut0mj.mongodb.net/<dbname>?retryWrites=true&w=majority
