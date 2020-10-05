@@ -70,7 +70,7 @@ app.use(session({
 
 // Listen to all requests made
 const PORT = 5000;
-app.listen(PORT, () => {
+app.listen(5000, () => {
     console.log(`listening to port ${PORT}`);
 });
 
