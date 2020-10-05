@@ -6,8 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const Locations = require('./models/Locations');
 var session = require('express-session')
-
-// const MongoStore  = require('connect-mongo')(session);
+const MongoStore  = require('connect-mongo')(session);
 require('dotenv/config');
 
 // Enable CORS for all requests
@@ -53,13 +52,14 @@ mongoose.connect(
     () => console.log('connected to DB!!')
 )
 
-// const sessionStore = new MongoStore({
-//     mongooseConnection: mongoose.connection,
-//     dbName: 'session'
-// });
+const sessionStore = new MongoStore({
+    mongooseConnection: mongoose.connection,
+    dbName: 'session'
+});
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    store: sessionStore,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -73,6 +73,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`);
 });
-
-
-//mongodb+srv://testUser:1qaz@WSX@cluster0.ut0mj.mongodb.net/<dbname>?retryWrites=true&w=majority
