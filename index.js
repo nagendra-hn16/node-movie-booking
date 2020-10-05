@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
 app.get('/locations', (req, res) => {
     try {
         console.log('locations');
-        res.set({'Access-Control-Allow-Origin': '*'})
         Locations.find({}, (error, result) => {
             console.log('result', result);
             if (error) {
@@ -34,7 +33,7 @@ app.get('/locations', (req, res) => {
                     msg: error
                 })
             } else {
-                res.json(result);
+                res.set({'Access-Control-Allow-Origin': '*'}).json(result);
             }
         })
     } catch (error) {
