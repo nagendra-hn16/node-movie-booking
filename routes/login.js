@@ -55,6 +55,7 @@ router.post('/moviesList', (req, res) => {
     try {
         Movies.find({locations: req.body.location}).sort({[sortBy]: order}).then(
             result => {
+                console.log(req.session.userName);
                 res.json(result)
             },
             error => {
@@ -110,7 +111,7 @@ router.post('/confirmBooking', async (req, res) => {
         console.log(updatedList)
         res.send({msg: "reservation successful"})
     } catch (error) {
-        console.log(error);
+        console.log('bookingError: ', error);
     }
 })
 
