@@ -69,8 +69,8 @@ app.use(session({
 }))
 
 // Listen to all requests made
-const PORT = 5000;
-app.listen(5000, () => {
+const PORT = env.process.PORT || 5000;
+app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`);
 });
 
