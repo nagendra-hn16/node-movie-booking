@@ -16,6 +16,9 @@ const UserSchema  = mongoose.Schema({
     availabilityStatus: {
         type: String,
         default: 'available'
+    },
+    reservations: {
+        type: Array
     }
 })
 
