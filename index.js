@@ -10,14 +10,14 @@ var session = require('express-session')
 // const MongoStore  = require('connect-mongo')(session);
 require('dotenv/config');
 
+// Enable CORS for all requests
+app.use(cors());
+
 app.use(bodyParser.json());
 
 const loginRoute = require('./routes/login');
 
 app.use('/login', loginRoute);
-
-// Enable CORS for all requests
-app.use(cors());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
