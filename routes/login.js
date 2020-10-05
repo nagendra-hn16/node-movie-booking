@@ -6,7 +6,7 @@ const Movies = require('../models/Movies');
 const Theaters = require('../models/Theaters');
 
 router.post('/validateUsers', (req, res) => {
-    // console.log('here ', req.headers.referer);
+    console.log('here ', req.body.username, req.body.password);
     if (!req.body.username || !req.body.password) {
         return res.json({
             msg: 'data insufficient'
