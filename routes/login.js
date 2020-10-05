@@ -28,8 +28,8 @@ router.post('/validateUsers', (req, res) => {
                 if(result.length > 0) {
                     // req.session.userName = req.body.username;
                     // console.log('in if');
-                    return res.set({'Access-Control-Allow-Origin': '*'}).redirect(`${req.headers.referer}list`);
-                    // res.json({msg: 'valid user'});
+                    // return res.set({'Access-Control-Allow-Origin': '*'}).redirect(`${req.headers.referer}list`);
+                    res.set({'Access-Control-Allow-Origin': '*'}).json({msg: 'valid user'});
                 } else {
                     // console.log('in else');
                     res.json({msg: 'invalid user'});
