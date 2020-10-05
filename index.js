@@ -14,6 +14,33 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+//Connect to mongo DB
+mongoose.connect(
+    process.env.DB_CONNECTION,
+    { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useMongoClient: true
+    },
+    () => console.log('connected to DB!!')
+)
+
+const sessionStore = new MongoStore({
+    mongooseConnection: mongoose.connection,
+    dbName: 'session'
+});
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}))
+
 const loginRoute = require('./routes/login');
 
 app.use('/login', loginRoute);
@@ -41,32 +68,6 @@ app.get('/locations', (req, res) => {
         })
     }
 })
-
-//Connect to mongo DB
-mongoose.connect(
-    process.env.DB_CONNECTION,
-    { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true 
-    },
-    () => console.log('connected to DB!!')
-)
-
-const sessionStore = new MongoStore({
-    mongooseConnection: mongoose.connection,
-    dbName: 'session'
-});
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000
-    }
-}))
 
 // Listen to all requests made
 const PORT = process.env.PORT || 5000;
