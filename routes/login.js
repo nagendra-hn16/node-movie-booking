@@ -6,7 +6,7 @@ const Movies = require('../models/Movies');
 const Theaters = require('../models/Theaters');
 
 router.post('/validateUsers', (req, res) => {
-    console.log('here ', req.body.username, req.body.password);
+    // console.log('here ', req.body.username, req.body.password);
     if (!req.body.username || !req.body.password) {
         return res.json({
             msg: 'data insufficient'
@@ -18,7 +18,7 @@ router.post('/validateUsers', (req, res) => {
             username: req.body.username,
             password: req.body.password
         }, function (err, result) {
-            console.log('here');
+            // console.log('here');
             if (err) {
                 res.json({
                     msg: error
@@ -55,7 +55,7 @@ router.post('/moviesList', (req, res) => {
     try {
         Movies.find({locations: req.body.location}).sort({[sortBy]: order}).then(
             result => {
-                console.log(req.session.userName);
+                // console.log(req.session.userName);
                 res.json(result)
             },
             error => {
@@ -102,13 +102,13 @@ router.post('/confirmBooking', async (req, res) => {
             "showDate": req.body.showDate,
             "showTime": req.body.showTime
         };
-    
+        console.log("newReservation: ", newReservation);
         const updatedList = await Users.updateOne({username: req.body.userName},
             {$push: {reservations: newReservation}}, {
                 new: true,
                 runValidators: true
             })
-        // console.log(updatedList)
+        console.log("updatedList: ", updatedList);
         res.json(updatedList)
     } catch (error) {
         console.log('bookingError: ', error);
