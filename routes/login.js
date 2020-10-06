@@ -106,9 +106,11 @@ router.post('/confirmBooking', async (req, res) => {
         const updatedList = await Users.updateOne({username: req.body.userName},
             {$push: {reservations: newReservation}}, {
                 new: true,
-                runValidators: true
+                runValidators: true,
+                upsert: true
             })
-        console.log("updatedList: ", updatedList);
+        const newList = await Users.findOne({username: req.body.userName})
+        console.log("newList: ", newList);
         res.json(updatedList)
     } catch (error) {
         console.log('bookingError: ', error);
