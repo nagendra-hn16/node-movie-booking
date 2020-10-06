@@ -108,8 +108,8 @@ router.post('/confirmBooking', async (req, res) => {
                 new: true,
                 runValidators: true
             })
-        console.log(updatedList)
-        res.send({msg: "reservation successful"})
+        // console.log(updatedList)
+        res.json(updatedList)
     } catch (error) {
         console.log('bookingError: ', error);
     }
