@@ -34,9 +34,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
+    key: 'express.sessionID',
     saveUninitialized: false,
     cookie: {
-        secure: true,
+        secure: false,
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
