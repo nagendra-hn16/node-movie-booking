@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Connect to mongo DB
-const connection = mongoose.createConnection(
+mongoose.connect(
     process.env.DB_CONNECTION,
     { 
         useNewUrlParser: true,
@@ -26,7 +26,7 @@ const connection = mongoose.createConnection(
 )
 
 const sessionStore = new MongoStore({
-    mongooseConnection: connection,
+    mongooseConnection: mongoose.connection,
     collection: 'sessions       '
 });
 
