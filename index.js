@@ -38,6 +38,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         secure: false,
+        domain: "herokuapp.com",
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
