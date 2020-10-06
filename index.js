@@ -38,8 +38,6 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         secure: false,
-        domain: "https://peaceful-tor-30705.herokuapp.com/",
-        httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
