@@ -29,7 +29,10 @@ router.post('/validateUsers', (req, res) => {
                     req.session.userName = req.body.username;
                     // console.log('in if');
                     // res.set({'Access-Control-Allow-Origin': '*'}).redirect(`${req.headers.referer}list`);
-                    res.set({'Access-Control-Allow-Origin': '*'}).json({msg: 'valid user'});
+                    res.set({'Access-Control-Allow-Origin': '*'}).json({
+                        session: req.session,
+                        msg: 'valid user'
+                    });
                 } else {
                     // console.log('in else');
                     res.json({msg: 'invalid user'});
@@ -56,7 +59,10 @@ router.post('/moviesList', (req, res) => {
         Movies.find({locations: req.body.location}).sort({[sortBy]: order}).then(
             result => {
                 // console.log(req.session.userName);
-                res.json(result)
+                res.json({
+                    "session": req.session,
+                    result
+                })
             },
             error => {
                 res.json({
@@ -87,7 +93,10 @@ router.get('/theatersList', (req, res) => {
             })
         })
         // console.log('resultList : ',resultList)
-        res.json(resultList);
+        res.json({
+            "session": req.session,
+            resultList
+        });
     })
 })
 
@@ -102,16 +111,20 @@ router.post('/confirmBooking', async (req, res) => {
             "showDate": req.body.showDate,
             "showTime": req.body.showTime
         };
-        console.log("newReservation: ", newReservation);
+        // console.log("newReservation: ", newReservation);
         const updatedList = await Users.updateOne({username: req.body.userName},
             {$push: {reservations: newReservation}}, {
                 new: true,
                 runValidators: true,
                 upsert: true
             })
-        const newList = await Users.findOne({username: req.body.userName})
-        console.log("newList: ", newList);
-        res.json(updatedList)
+        // const newList = await Users.findOne({username: req.body.userName})
+        // console.log("newList: ", newList);
+        res.json({
+            session: req.session,
+            msg: "booking confirmed!",
+            price: req.body.price
+        });
     } catch (error) {
         console.log('bookingError: ', error);
     }
