@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Connect to mongo DB
-mongoose.connect(
+const connection = mongoose.createConnection(
     process.env.DB_CONNECTION,
     { 
         useNewUrlParser: true,
@@ -26,20 +26,16 @@ mongoose.connect(
 )
 
 const sessionStore = new MongoStore({
-    mongooseConnection: mongoose.connection,
-    dbName: 'session'
+    mongooseConnection: connection,
+    collection: 'sessions       '
 });
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
-    key: 'sessionId',
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
-        secure: false,
-        path: "/",
-        domain: "herokuapp.com",
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
