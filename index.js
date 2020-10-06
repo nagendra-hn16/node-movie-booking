@@ -34,10 +34,12 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
-    key: 'express.sessionID',
+    key: 'sessionId',
     saveUninitialized: false,
     cookie: {
         secure: false,
+        domain: "https://peaceful-tor-30705.herokuapp.com/",
+        httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
