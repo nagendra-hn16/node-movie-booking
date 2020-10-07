@@ -30,7 +30,6 @@ router.post('/validateUsers', (req, res) => {
                     // console.log('in if');
                     // res.set({'Access-Control-Allow-Origin': '*'}).redirect(`${req.headers.referer}list`);
                     res.set({'Access-Control-Allow-Origin': '*'}).json({
-                        session: req.session,
                         msg: 'valid user'
                     });
                 } else {
@@ -59,10 +58,7 @@ router.post('/moviesList', (req, res) => {
         Movies.find({locations: req.body.location}).sort({[sortBy]: order}).then(
             result => {
                 // console.log(req.session.userName);
-                res.json({
-                    "session": req.session,
-                    result
-                })
+                res.json(result)
             },
             error => {
                 res.json({
@@ -93,10 +89,7 @@ router.get('/theatersList', (req, res) => {
             })
         })
         // console.log('resultList : ',resultList)
-        res.json({
-            "session": req.session,
-            resultList
-        });
+        res.json(resultList);
     })
 })
 
@@ -121,7 +114,6 @@ router.post('/confirmBooking', async (req, res) => {
         // const newList = await Users.findOne({username: req.body.userName})
         // console.log("newList: ", newList);
         res.json({
-            session: req.session,
             msg: "booking confirmed!",
             price: req.body.price
         });
