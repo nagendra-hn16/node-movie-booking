@@ -30,20 +30,17 @@ const sessionStore = new MongoStore({
     collection: 'sessions       '
 });
 
+const loginRoute = require('./routes/login');
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: true,
-        key: 'sessionid',
-        httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
-
-const loginRoute = require('./routes/login');
 
 app.use('/login', loginRoute);
 
