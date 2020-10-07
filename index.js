@@ -37,9 +37,12 @@ app.use(session({
     store: sessionStore,
     resave: false,
     saveUninitialized: true,
+    name: 'sessionId',
     cookie: {
-        key: 'sessionid',
-        maxAge: 24 * 60 * 60 * 1000
+        secure: true,
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        domain: '.herokuapp.com'
     }
 }))
 
