@@ -41,8 +41,7 @@ app.use(session({
         secure: true,
         key: 'sessionid',
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        domain: '.herokuapp.com'
+        maxAge: 24 * 60 * 60 * 1000
     }
 }))
 
