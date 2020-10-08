@@ -13,8 +13,7 @@ mongoose.connect(
     process.env.DB_CONNECTION,
     { 
         useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useMongoClient: true
+        useUnifiedTopology: true
     },
     () => console.log('connected to DB!!')
 )
@@ -26,7 +25,7 @@ app.use(cors());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, POST');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 })
@@ -41,10 +40,10 @@ app.get('/', (req, res) => {
 
 app.get('/locations', (req, res) => {
     try {
-        console.log('locations', res);
+        // console.log('locations', res);
         // res.header('Access-Control-Allow-Origin', '*');
         Locations.find({}, (error, result) => {
-            console.log('result', result);
+            // console.log('result', result);
             if (error) {
                 res.json({
                     msg: error
