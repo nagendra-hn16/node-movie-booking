@@ -74,6 +74,7 @@ router.post('/moviesList', extractToken, (req, res) => {
             } else {
                 const decoded = jwt.decode(req.token, {complete: true});
                 console.log('payload', decoded.payload);
+                console.log('header', decoded.header);
                 const sortBy = req.body.sortBy || 'name';
                 const order = req.body.sortBy ? -1 : 1;
                 if (!req.body.location) {
