@@ -68,11 +68,12 @@ router.post('/validateUsers', (req, res) => {
 
 router.post('/moviesList', extractToken, (req, res) => {
     try {
-        jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
-            console.log(decoded.userName);
+        jwt.verify(req.token, process.env.JWT_SECRET, (err, verified) => {
             if(err) {
                 res.sendStatus(403);
             } else {
+                const decoded = jwt.decode(req.token, {complete: true});
+                console.log('payload', decoded.payload);
                 const sortBy = req.body.sortBy || 'name';
                 const order = req.body.sortBy ? -1 : 1;
                 if (!req.body.location) {
@@ -80,10 +81,11 @@ router.post('/moviesList', extractToken, (req, res) => {
                         msg: 'data insufficient'
                     });
                 }
-                Movies.find({locations: req.body.location}).sort({[sortBy]: order}).then(
+                Movies.find({locations: req.body.location})
+                .sort({[sortBy]: order}).then(
                     result => {
                         res.json({
-                            userInfo: decoded,
+                            userInfo: verified,
                             result
                         })
                     },
@@ -105,7 +107,7 @@ router.post('/moviesList', extractToken, (req, res) => {
 })
 
 router.get('/theatersList', extractToken, (req, res) => {
-    jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(req.token, process.env.JWT_SECRET, (err, verified) => {
         if(err) {
             res.sendStatus(403);
         } else {
@@ -125,7 +127,7 @@ router.get('/theatersList', extractToken, (req, res) => {
                     })
                 })
                 res.set({'Access-Control-Allow-Origin': '*'}).json({
-                    userInfo: decoded,
+                    userInfo: verified,
                     result: resultList
                 });
             })
@@ -135,7 +137,7 @@ router.get('/theatersList', extractToken, (req, res) => {
 
 router.post('/confirmBooking', extractToken, (req, res) => {
     try {
-        jwt.verify(req.token, process.env.JWT_SECRET, async (err, decoded) => {
+        jwt.verify(req.token, process.env.JWT_SECRET, async (err, verified) => {
             if(err) {
                 res.sendStatus(403);
             } else {
@@ -155,7 +157,7 @@ router.post('/confirmBooking', extractToken, (req, res) => {
                         upsert: true
                     })
                 res.set({'Access-Control-Allow-Origin': '*'}).json({
-                    userInfo: decoded,
+                    userInfo: verified,
                     msg: "booking confirmed!",
                     price: req.body.price
                 });
