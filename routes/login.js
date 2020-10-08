@@ -38,11 +38,9 @@ router.post('/validateUsers', (req, res) => {
                 })
             } else {
                 if(result.length > 0) {
-                    console.log('username', result);
-                    console.log('userRole', result.userRole);
                     const userInfo = {
-                        userName: result.username,
-                        userRole: result.userRole
+                        userName: result[0].username,
+                        userRole: result[0].userRole
                     };
                     jwt.sign(
                         {userInfo},
