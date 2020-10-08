@@ -38,7 +38,7 @@ router.post('/validateUsers', (req, res) => {
                 })
             } else {
                 if(result.length > 0) {
-                    console.log('username', result.username);
+                    console.log('username', result);
                     console.log('userRole', result.userRole);
                     const userInfo = {
                         userName: result.username,
