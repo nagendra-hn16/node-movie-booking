@@ -8,11 +8,6 @@ const Locations = require('./models/Locations');
 
 require('dotenv/config');
 
-// Enable CORS for all requests
-app.use(cors());
-
-app.use(bodyParser.json());
-
 //Connect to mongo DB
 mongoose.connect(
     process.env.DB_CONNECTION,
@@ -25,6 +20,11 @@ mongoose.connect(
 )
 
 const loginRoute = require('./routes/login');
+
+// Enable CORS for all requests
+app.use(cors());
+
+app.use(bodyParser.json());
 
 app.use('/login', loginRoute);
 
