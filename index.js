@@ -46,7 +46,7 @@ app.get('/locations', (req, res) => {
             }
         })
     } catch (error) {
-        res.json({
+        res.setHeader({'Access-Control-Allow-Origin': '*'}).json({
             msg: error
         })
     }
