@@ -38,24 +38,24 @@ router.post('/validateUsers', (req, res) => {
                 })
             } else {
                 if(result.length > 0) {
-                    jwt.sign({
-                        userInfo: {
-                            'userName': result.username,
-                            'userRole': result.userRole
-                        }
-                    }, 
-                    process.env.JWT_SECRET, 
-                    {expiresIn: 600},
-                    (err, token) => {
-                        if(err) {
-                            res.sendStatus(403);
-                        } else {
-                            res.set({'Access-Control-Allow-Origin': '*'}).json({
-                                msg: 'valid user',
-                                token
-                            });
-                        }
-                    })
+                    const userInfo = {
+                        'userName': result.username,
+                        'userRole': result.userRole
+                    };
+                    jwt.sign(
+                        {userInfo},
+                        process.env.JWT_SECRET, 
+                        {expiresIn: 600},
+                        (err, token) => {
+                            if(err) {
+                                res.sendStatus(403);
+                            } else {
+                                res.set({'Access-Control-Allow-Origin': '*'}).json({
+                                    msg: 'valid user',
+                                    token
+                                });
+                            }
+                        })
                     
                 } else {
                     res.json({msg: 'invalid user'});
