@@ -132,7 +132,7 @@ router.post('/confirmBooking', extractToken, async (req, res) => {
                     "showDate": req.body.showDate,
                     "showTime": req.body.showTime
                 };
-                await Users.updateOne({username: req.body.userName},
+                const updatedList = await Users.updateOne({username: req.body.userName},
                     {$push: {reservations: newReservation}}, {
                         new: true,
                         runValidators: true,
