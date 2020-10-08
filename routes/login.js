@@ -32,7 +32,7 @@ router.post('/validateUsers', (req, res) => {
                         if(err) {
                             res.sendStatus(403);
                         } else {
-                            res.setHeader({'Access-Control-Allow-Origin': '*'}).json({
+                            res.set({'Access-Control-Allow-Origin': '*'}).json({
                                 msg: 'valid user',
                                 token
                             });
@@ -81,7 +81,7 @@ router.post('/moviesList', extractToken, (req, res) => {
             }
         })
     } catch (error) {
-        res.setHeader({'Access-Control-Allow-Origin': '*'}).json({
+        res.set({'Access-Control-Allow-Origin': '*'}).json({
             msg: "in catch block",
             error
         })
@@ -108,7 +108,7 @@ router.get('/theatersList', extractToken, (req, res) => {
                         }
                     })
                 })
-                res.setHeader({'Access-Control-Allow-Origin': '*'}).json({
+                res.set({'Access-Control-Allow-Origin': '*'}).json({
                     userInfo: decoded,
                     result: resultList
                 });
@@ -138,7 +138,7 @@ router.post('/confirmBooking', extractToken, async (req, res) => {
                         runValidators: true,
                         upsert: true
                     })
-                res.setHeader({'Access-Control-Allow-Origin': '*'}).json({
+                res.set({'Access-Control-Allow-Origin': '*'}).json({
                     userInfo: decoded,
                     msg: "booking confirmed!",
                     price: req.body.price
