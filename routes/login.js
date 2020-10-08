@@ -117,9 +117,9 @@ router.get('/theatersList', extractToken, (req, res) => {
     })
 })
 
-router.post('/confirmBooking', extractToken, async (req, res) => {
+router.post('/confirmBooking', extractToken, (req, res) => {
     try {
-        jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
+        jwt.verify(req.token, process.env.JWT_SECRET, async (err, decoded) => {
             if(err) {
                 res.sendStatus(403);
             } else {
