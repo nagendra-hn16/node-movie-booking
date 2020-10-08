@@ -46,9 +46,10 @@ app.get('/locations', (req, res) => {
             }
         })
     } catch (error) {
-        res.set({'Access-Control-Allow-Origin': '*'}).json({
+        res.set('Access-Control-Allow-Origin', '*');
+        res.json({
             msg: error
-        })
+        });
     }
 })
 
