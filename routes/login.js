@@ -88,7 +88,7 @@ router.post('/moviesList', extractToken, (req, res) => {
                 .sort({[sortBy]: order}).then(
                     result => {
                         res.json({
-                            userInfo: verified,
+                            payload: verified,
                             result
                         })
                     },
