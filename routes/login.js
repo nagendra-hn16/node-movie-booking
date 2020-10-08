@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 const extractToken = (req, res, next) => {
     console.log(req.headers);
-    const bearerHeader = req.headers('autorization');
+    const bearerHeader = req.headers.autorization;
     if(typeof bearerHeader !== undefined) {
         const bearer = bearerHeader.split(' ');
         const bearerToken = bearer[1];
@@ -19,7 +19,7 @@ const extractToken = (req, res, next) => {
     }
 };
 
-router.post('/validateUsers', (req, res) => {
+router.post('/validateUsers', (req, res) => {   
     if (!req.body.username || !req.body.password) {
         return res.json({
             msg: 'data insufficient'
