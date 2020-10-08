@@ -69,6 +69,7 @@ router.post('/validateUsers', (req, res) => {
 router.post('/moviesList', extractToken, (req, res) => {
     try {
         jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
+            console.log(decoded.userName);
             if(err) {
                 res.sendStatus(403);
             } else {
