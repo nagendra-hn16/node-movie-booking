@@ -21,6 +21,11 @@ mongoose.connect(
 
 const loginRoute = require('./routes/login');
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+})
+
 // Enable CORS for all requests
 app.use(cors());
 
@@ -34,8 +39,8 @@ app.get('/', (req, res) => {
 
 app.get('/locations', (req, res) => {
     try {
-        console.log('locations');
-        res.set('Access-Control-Allow-Origin', '*');
+        console.log('locations', res);
+        // res.header('Access-Control-Allow-Origin', '*');
         Locations.find({}, (error, result) => {
             console.log('result', result);
             if (error) {
