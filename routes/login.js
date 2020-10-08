@@ -4,7 +4,19 @@ const Users = require('../models/Users');
 const Movies = require('../models/Movies');
 const Theaters = require('../models/Theaters');
 const jwt = require('jsonwebtoken');
-const Post = require('../models/Posts');
+// const Post = require('../models/Posts');
+
+const extractToken = (req, res, next) => {
+    const bearerHeader = req.headers('autorization');
+    if(typeof bearerHeader !== undefined) {
+        const bearer = bearerHeader.split(' ');
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+};
 
 router.post('/validateUsers', (req, res) => {
     if (!req.body.username || !req.body.password) {
@@ -149,18 +161,6 @@ router.post('/confirmBooking', extractToken, (req, res) => {
         console.log('bookingError: ', error);
     }
 })
-
-const extractToken = (req, res, next) => {
-    const bearerHeader = req.headers('autorization');
-    if(typeof bearerHeader !== undefined) {
-        const bearer = bearerHeader.split(' ');
-        const bearerToken = bearer[1];
-        req.token = bearerToken;
-        next();
-    } else {
-        res.sendStatus(403);
-    }
-};
 
 // router.post('/addPost', (req, res) => {
 //     // console.log(req.body);
