@@ -25,10 +25,8 @@ mongoose.connect(
 )
 
 const loginRoute = require('./routes/login');
-// const moviesRoute = require('./routes/movies');
 
 app.use('/login', loginRoute);
-// app.use('/movies', moviesRoute);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
