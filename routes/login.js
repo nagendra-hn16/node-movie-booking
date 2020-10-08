@@ -39,11 +39,14 @@ router.post('/validateUsers', (req, res) => {
             } else {
                 if(result.length > 0) {
                     jwt.sign({
-                        userName: result.username,
-                        userRole: result.userRole
-                    }, process.env.JWT_SECRET, {
-                        expiresIn: 600
-                    }, (err, token) => {
+                        userInfo: {
+                            userName: result.username,
+                            userRole: result.userRole
+                        }
+                    }, 
+                    process.env.JWT_SECRET, 
+                    {expiresIn: 600},
+                    (err, token) => {
                         if(err) {
                             res.sendStatus(403);
                         } else {
@@ -72,9 +75,8 @@ router.post('/moviesList', extractToken, (req, res) => {
             if(err) {
                 res.sendStatus(403);
             } else {
-                const decoded = jwt.decode(req.token, {complete: true});
-                console.log('payload', decoded.payload);
-                console.log('header', decoded.header);
+                // const decoded = jwt.decode(req.token, {complete: true});
+                console.log('payload', verified);
                 const sortBy = req.body.sortBy || 'name';
                 const order = req.body.sortBy ? -1 : 1;
                 if (!req.body.location) {
