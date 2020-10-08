@@ -5,8 +5,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Locations = require('./models/Locations');
-var session = require('express-session')
-const MongoStore  = require('connect-mongo')(session);
+
 require('dotenv/config');
 
 // Enable CORS for all requests
@@ -25,28 +24,11 @@ mongoose.connect(
     () => console.log('connected to DB!!')
 )
 
-const sessionStore = new MongoStore({
-    mongooseConnection: mongoose.connection,
-    collection: 'sessions       '
-});
-
 const loginRoute = require('./routes/login');
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: true,
-    name: 'sessionId',
-    cookie: {
-        secure: true,
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        domain: '.herokuapp.com'
-    }
-}))
+const moviesRoute = require('./routes/movies');
 
 app.use('/login', loginRoute);
+app.use('/movies', moviesRoute);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
