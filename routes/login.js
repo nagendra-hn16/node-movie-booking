@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 // const Post = require('../models/Posts');
 
 const extractToken = (req, res, next) => {
-    console.log(req.headers);
+    // console.log(req.headers.autorization);
     const bearerHeader = req.headers.autorization;
     if(typeof bearerHeader !== undefined) {
         const bearer = bearerHeader.split(' ');
@@ -15,7 +15,9 @@ const extractToken = (req, res, next) => {
         req.token = bearerToken;
         next();
     } else {
-        res.sendStatus(403);
+        res.sendStatus(403).json({
+            msg: 'no token'
+        });
     }
 };
 
