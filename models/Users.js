@@ -19,6 +19,10 @@ const UserSchema  = mongoose.Schema({
     },
     reservations: {
         type: Array
+    },
+    defaultLocation: {
+        type: String,
+        default: 'Bangalore'
     }
 })
 
